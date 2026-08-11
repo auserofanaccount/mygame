@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="robots" content="noindex" />
+    <title>You are an idiot!</title>
+    <link rel="icon" href="idiot.ico" type="image/x-icon" />
+    <style>
+      html, body { 
+        width: 100%; 
+        height: 100%; 
+        margin: 0; 
+        padding: 0; 
+        overflow: hidden; 
+        background-color: #ffffff; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+      }
+      #flash-img { 
+        width: 100%; 
+        height: 100%; 
+        object-fit: contain; 
+        user-select: none; 
+        -webkit-user-drag: none; 
+      }
+    </style>
+    <script src="scripts/you.js"></script>
+  </head>
+  <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+    
+    <img id="flash-img" src="flash.gif" alt="You are an idiot!" />
+    
+    <audio id="idiot-audio" src="idiot.mp3" loop autoplay></audio>
+    
+    <script language="Javascript">
+      var audio = document.getElementById("idiot-audio");
+      
+      function unlockAudio() {
+        audio.play();
+        if(document.detachEvent) {
+          document.detachEvent("onclick", unlockAudio);
+          document.detachEvent("onkeydown", unlockAudio);
+        } else {
+          document.removeEventListener("click", unlockAudio);
+          document.removeEventListener("keydown", unlockAudio);
+        }
+      }
+      
+      try {
+        audio.play();
+      } catch(e) {
+        if(document.attachEvent) {
+          document.attachEvent("onclick", unlockAudio);
+          document.attachEvent("onkeydown", unlockAudio);
+        } else {
+          document.addEventListener("click", unlockAudio);
+          document.addEventListener("keydown", unlockAudio);
+        }
+      }
+      
+      document.oncontextmenu = function() { return false; };
+      
+      flagRun = 1;
+      playBall();
+    </script>
+  </body>
+</html>
