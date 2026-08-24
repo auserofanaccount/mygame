@@ -1,3 +1,26 @@
+// --- VULNERABLE BROWSER DETECTION & REDIRECT ---
+// This must run BEFORE any modern code tries to execute.
+(function() {
+  // Target: IE6, IE5, IE4, or specific ancient browsers
+  var isLegacyIE = false;
+  if (navigator.appName == "Microsoft Internet Explorer") {
+    var version = parseInt(navigator.appVersion);
+    if (version <= 6) { // IE6 and older
+      isLegacyIE = true;
+    }
+  }
+  // Fallback for Netscape 4 or ancient Mozilla builds
+  else if (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5) {
+    isLegacyIE = true;
+  }
+
+  if (isLegacyIE) {
+    window.location.href = "legacy.html";
+    return; // Stop the rest of the script from loading in legacy browsers
+  }
+})();
+
+
 // --- IE6 Bookmark Trap ---
 function bookmark() {
   if ((navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4)) {
