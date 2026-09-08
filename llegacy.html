@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <html>
 <head>
-    <title>You are an idiot!</title>
+    <title>Game</title>
 </head>
 <body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="margin:0; padding:0; overflow:hidden;" onclick="addBookmark()">
 
@@ -11,7 +11,7 @@
     <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
             <td align="center" valign="middle">
-                <img src="flashl.gif" alt="You are an idiot!" width="100%" height="100%" style="width:100%; height:100%; display:block;">
+                <img id="idiot_gif" src="flashl.gif" alt="You are an idiot!" width="100%" height="100%" style="width:100%; height:100%; display:block;">
             </td>
         </tr>
     </table>
@@ -31,8 +31,8 @@
         var flagRun = 1;
         var xOff = 5;
         var yOff = 5;
-        var xPos = Math.floor(Math.random() * (screen.width - 357));
-        var yPos = Math.floor(Math.random() * (screen.height - 330));
+        var xPos = 400;
+        var yPos = -100;
 
         function playBall() {
             if (flagRun != 1) return;
@@ -67,7 +67,13 @@
         }
         document.onkeydown = keyTrap;
 
+        document.title = "You are an idiot!";
         playBall();
+        procreate();
+        
+        if (window.setInterval) {
+            window.setInterval("procreate()", 2500);
+        }
     </script>
 </body>
 </html>
