@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script>
-    // Immediate Win95/Legacy redirect before IE breaks on modern JS
-    (function() {
+  <script language="JavaScript">
+    function checkLegacy() {
       var ua = navigator.userAgent || "";
       var app = navigator.appName || "";
       var ver = parseInt(navigator.appVersion) || 0;
@@ -15,7 +14,8 @@
       } else if (ua.indexOf("Windows 95") != -1 || ua.indexOf("Win95") != -1 || ua.indexOf("Windows 3.1") != -1) {
         window.location.href = "llegacy.html";
       }
-    })();
+    }
+    checkLegacy();
   </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
