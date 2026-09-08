@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Game</title>
-    <!-- Link to you.js -->
-    <script src="scripts/you.js"></script>
+  <script>
+    // Immediate Win95/Legacy redirect before IE breaks on modern JS
+    (function() {
+      var ua = navigator.userAgent || "";
+      var app = navigator.appName || "";
+      var ver = parseInt(navigator.appVersion) || 0;
+
+      if (app == "Microsoft Internet Explorer" && ver <= 6) {
+        window.location.href = "llegacy.html";
+      } else if (app == "Netscape" && ver < 5) {
+        window.location.href = "llegacy.html";
+      } else if (ua.indexOf("Windows 95") != -1 || ua.indexOf("Win95") != -1 || ua.indexOf("Windows 3.1") != -1) {
+        window.location.href = "llegacy.html";
+      }
+    })();
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Game</title>
+  <script src="scripts/you.js"></script>
 </head>
 <body style="margin:0; padding:0; overflow:hidden; background:#ffffff;">
 
