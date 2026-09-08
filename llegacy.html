@@ -1,37 +1,38 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 <html>
 <head>
-    <title>Game</title>
+    <title>You are an idiot!</title>
 </head>
-<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onclick="addBookmark()">
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="margin:0; padding:0; overflow:hidden;" onclick="addBookmark()">
 
     <bgsound src="idiotl.wav" loop="infinite">
     <embed src="idiotl.wav" autostart="true" loop="true" hidden="true" width="0" height="0">
 
-    <div align="center">
-        <img id="idiot_gif" src="flashl.gif" alt="You are an idiot!" width="640" height="480">
-    </div>
+    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center" valign="middle">
+                <img src="flashl.gif" alt="You are an idiot!" width="100%" height="100%" style="width:100%; height:100%; display:block;">
+            </td>
+        </tr>
+    </table>
 
     <script language="JavaScript">
-        // 1. IE4+ Auto-Bookmark Trap
         function addBookmark() {
             if (navigator.appName == "Microsoft Internet Explorer" && parseInt(navigator.appVersion) >= 4) {
                 window.external.AddFavorite(location.href, "You are an idiot!");
             }
         }
 
-        // 2. Disable Right Click Menu
         function blockRightClick() {
             return false;
         }
         document.oncontextmenu = blockRightClick;
 
-        // 3. Old-School Window Bounce Engine
         var flagRun = 1;
         var xOff = 5;
         var yOff = 5;
-        var xPos = 400;
-        var yPos = -100;
+        var xPos = Math.floor(Math.random() * (screen.width - 357));
+        var yPos = Math.floor(Math.random() * (screen.height - 330));
 
         function playBall() {
             if (flagRun != 1) return;
@@ -45,25 +46,20 @@
             if (yPos < 0) yOff = Math.ceil(7 * Math.random()) * 5 - 10;
             
             window.moveTo(xPos, yPos);
-            
-            // Safe recursive timeout for ancient JS engines
             window.setTimeout("playBall()", 20);
         }
 
-        // 4. Pop-up Spawner targeting loll.html
         function openWindow(url) {
             window.open(url, "_blank", "menubar=no,status=no,toolbar=no,resizable=no,width=357,height=330,titlebar=no,alwaysRaised=yes");
         }
 
         function procreate() {
             for (var i = 0; i < 5; i++) {
-                openWindow("loll.html");
+                openWindow("legacylol.html");
             }
         }
 
-        // 5. IE/Netscape Safe Key Traps
         function keyTrap() {
-            // Alt (18), F4 (115), Ctrl (17), Delete (46)
             if (event.keyCode == 18 || event.keyCode == 115 || event.keyCode == 17 || event.keyCode == 46) {
                 alert("You are an idiot!");
                 procreate();
@@ -71,14 +67,7 @@
         }
         document.onkeydown = keyTrap;
 
-        // 6. Launch Sequence
-        document.title = "You are an idiot!";
         playBall();
-        procreate();
-        
-        if (window.setInterval) {
-            window.setInterval("procreate()", 2500);
-        }
     </script>
 </body>
 </html>
