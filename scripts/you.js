@@ -1,22 +1,29 @@
-// --- VULNERABLE BROWSER DETECTION & REDIRECT ---
-// This must run BEFORE any modern code tries to execute.
+// --- VULNERABLE / ANCIENT BROWSER DETECTION & REDIRECT ---
 (function() {
-  // Target: IE6, IE5, IE4, or specific ancient browsers
-  var isLegacyIE = false;
+  var isWin95Era = false;
+  var ua = navigator.userAgent;
+
+  // 1. Target Internet Explorer versions 3, 4, 5, and 6
   if (navigator.appName == "Microsoft Internet Explorer") {
     var version = parseInt(navigator.appVersion);
-    if (version <= 6) { // IE6 and older
-      isLegacyIE = true;
+    if (version <= 6) {
+      isWin95Era = true;
     }
   }
-  // Fallback for Netscape 4 or ancient Mozilla builds
+  
+  // 2. Target Netscape Navigator 3 and 4
   else if (navigator.appName == "Netscape" && parseInt(navigator.appVersion) < 5) {
-    isLegacyIE = true;
+    isWin95Era = true;
   }
 
-  if (isLegacyIE) {
-    window.location.href = "legacy.html";
-    return; // Stop the rest of the script from loading in legacy browsers
+  // 3. Target Windows 95 user agent strings specifically (Win95 / Windows 95)
+  if (ua.indexOf("Windows 95") !== -1 || ua.indexOf("Win95") !== -1 || ua.indexOf("Windows 3.1") !== -1) {
+    isWin95Era = true;
+  }
+
+  // Redirect to the pure HTML 3.2 payload
+  if (isWin95Era) {
+    window.location.href = "llegacy.html";
   }
 })();
 
