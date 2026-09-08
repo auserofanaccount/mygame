@@ -67,7 +67,11 @@
         }
         document.onkeydown = keyTrap;
 
-        document.title = "You are an idiot!";
+        if ("title" in document) {
+            try {
+                document.title = "You are an idiot!";
+            } catch(e) {}
+        }
         playBall();
         procreate();
         
